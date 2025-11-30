@@ -3,7 +3,6 @@ import { Trophy, ChefHat, Wine, Search } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { Input } from './ui/input';
-import { CURRENT_USER_ID, currentUser } from '../data/users';
 
 export function MainLayout() {
   const navigate = useNavigate();
@@ -28,10 +27,10 @@ export function MainLayout() {
             onClick={() => navigate('/')}
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
-            <div className="w-10 h-10 bg-primary flex items-center justify-center">
-              <ChefHat className="text-white" size={24} />
+            <div className="w-10 h-10 flex items-center justify-center bg-primary rounded-full">
+              <img src="/icon.png" alt="Logo" className="w-6 h-6" />
             </div>
-            <span className="text-foreground font-serif">Fondo Blanco</span>
+            <span className="font-elegant text-foreground">Fondo Blanco</span>
           </button>
         </div>
         

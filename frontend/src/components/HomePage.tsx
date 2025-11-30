@@ -59,7 +59,7 @@ export function HomePage() {
       {/* Header */}
       <header className="bg-card border-b border-border px-6 py-4 flex items-center justify-between">
         <div>
-          <h1 className="text-foreground">{searchQuery ? `Resultados para "${searchQuery}"` : 'Los más puntuados del día'}</h1>
+          <h1 className="font-elegant">{searchQuery ? `Resultados para "${searchQuery}"` : 'Los más puntuados del día'}</h1>
           <p className="text-muted-foreground mt-1">
             {searchQuery ? `${sortedDrinks.length} tragos encontrados` : '29 de noviembre, 2025'}
           </p>
