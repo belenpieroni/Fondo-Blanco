@@ -1,0 +1,67 @@
+export const commonIngredients = [
+  // Licores base
+  'Ron blanco',
+  'Ron añejo',
+  'Ron oscuro',
+  'Vodka',
+  'Gin',
+  'Tequila blanco',
+  'Tequila reposado',
+  'Whiskey',
+  'Bourbon',
+  'Brandy',
+  'Pisco',
+  
+  // Licores y cremas
+  'Licor de café',
+  'Cointreau',
+  'Triple sec',
+  'Amaretto',
+  'Baileys',
+  'Crema de coco',
+  'Campari',
+  'Vermouth rosso',
+  'Vermouth seco',
+  
+  // Jugos y frutas
+  'Jugo de limón',
+  'Jugo de lima',
+  'Jugo de naranja',
+  'Jugo de piña',
+  'Jugo de arándano',
+  'Jugo de tomate',
+  'Lima',
+  'Limón',
+  'Naranja',
+  'Frutillas',
+  'Menta',
+  'Albahaca',
+  
+  // Otros
+  'Azúcar',
+  'Azúcar morena',
+  'Jarabe simple',
+  'Miel',
+  'Angostura bitters',
+  'Espresso',
+  'Café',
+  'Agua tónica',
+  'Ginger ale',
+  'Agua con gas',
+  'Hielo',
+  'Sal',
+  'Pimienta',
+  'Salsa tabasco',
+  'Salsa inglesa',
+];
+
+export const categories = [
+  'Cócteles',
+  'Tragos largos',
+  'Shots',
+  'Sin alcohol',
+  'Clásicos',
+  'Tropicales',
+  'Cremosos',
+  'Refrescantes',
+];
