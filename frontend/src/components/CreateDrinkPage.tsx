@@ -306,8 +306,10 @@ export function CreateDrinkPage() {
                           <SelectItem value="gr" className="text-foreground hover:bg-secondary">gr</SelectItem>
                           <SelectItem value="ml" className="text-foreground hover:bg-secondary">ml</SelectItem>
                           <SelectItem value="cc" className="text-foreground hover:bg-secondary">cc</SelectItem>
+                          <SelectItem value="cda" className="text-foreground hover:bg-secondary">cda</SelectItem>
                           <SelectItem value="cdita" className="text-foreground hover:bg-secondary">cdita</SelectItem>
                           <SelectItem value="taza" className="text-foreground hover:bg-secondary">taza</SelectItem>
+                          <SelectItem value="unidad" className="text-foreground hover:bg-secondary">unidad</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>

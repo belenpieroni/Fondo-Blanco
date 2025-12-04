@@ -89,7 +89,14 @@ export function HomePage() {
         <div>
           <h1 className="text-foreground">{searchQuery ? `Resultados para "${searchQuery}"` : 'Los más puntuados del día'}</h1>
           <p className="text-muted-foreground mt-1">
-            {searchQuery ? `${sortedDrinks.length} tragos encontrados` : '29 de noviembre, 2025'}
+            {searchQuery 
+              ? `${sortedDrinks.length} tragos encontrados` 
+              : new Date().toLocaleDateString('es-ES', { 
+                  day: 'numeric', 
+                  month: 'long', 
+                  year: 'numeric' 
+                })
+            }
           </p>
         </div>
         
