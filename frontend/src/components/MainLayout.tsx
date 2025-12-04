@@ -1,9 +1,10 @@
 import { Outlet, useNavigate, useLocation } from 'react-router';
-import { Trophy, ChefHat, Wine, Search } from 'lucide-react';
+import { Trophy, Wine, Search } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { Input } from './ui/input';
 import { CURRENT_USER_ID, currentUser } from '../data/users';
+import Icon from '../assets/icon.png';
 
 export function MainLayout() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ export function MainLayout() {
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
             <div className="w-10 h-10 bg-primary flex items-center justify-center">
-              <ChefHat className="text-white" size={24} />
+              <img src={Icon} alt="Logo" />
             </div>
             <span className="text-foreground font-serif">Fondo Blanco</span>
           </button>
