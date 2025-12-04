@@ -113,7 +113,11 @@ export function CreateDrinkPage() {
       comments: []
     };
     
-    drinkStorage.add(newDrink);
+    fetch("http://localhost:3001/drinks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newDrink)
+    });
     alert('¡Trago creado con éxito!');
     navigate('/mis-tragos');
   };
@@ -293,7 +297,7 @@ export function CreateDrinkPage() {
                       <Label htmlFor={`ingredient-unit-${ingredient.id}`} className="text-foreground">Unidad</Label>
                       <Select
                         value={ingredient.unit}
-                        onValueChange={(value) => updateIngredient(ingredient.id, 'unit', value)}
+                        onValueChange={(value: string) => updateIngredient(ingredient.id, 'unit', value)}
                       >
                         <SelectTrigger id={`ingredient-unit-${ingredient.id}`} className="bg-input-background border-border text-foreground">
                           <SelectValue />

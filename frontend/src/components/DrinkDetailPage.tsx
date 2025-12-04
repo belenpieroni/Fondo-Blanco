@@ -16,11 +16,32 @@ export function DrinkDetailPage() {
   const [replyText, setReplyText] = useState('');
 
   useEffect(() => {
-    if (id) {
-      const foundDrink = drinkStorage.getById(id);
-      setDrink(foundDrink || null);
+  async function loadDrink() {
+    if (!id) return;
+
+    const foundDrink = await drinkStorage.getById(id);
+
+    if (!foundDrink) {
+      setDrink(null);
+      return;
     }
-  }, [id]);
+
+    // Normalizamos para evitar undefined en arrays
+    const normalizedDrink: Drink = {
+      ...foundDrink,
+      ingredients: foundDrink.ingredients ?? [],
+      steps: foundDrink.steps ?? [],
+      comments: foundDrink.comments ?? [],
+      userVote: foundDrink.userVote ?? null,
+    };
+
+    setDrink(normalizedDrink);
+  }
+
+  loadDrink();
+}, [id]);
+
+
 
   if (!drink) {
     return (

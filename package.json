@@ -1,5 +1,5 @@
 {
-      "name": "Fondo Blanco",
+      "name": "fondo-blanco",
       "version": "0.1.0",
       "private": true,
       "dependencies": {
@@ -34,6 +34,7 @@
             "cmdk": "^1.1.1",
             "embla-carousel-react": "^8.6.0",
             "input-otp": "^1.4.2",
+            "json-server": "^1.0.0-beta.3",
             "lucide-react": "^0.487.0",
             "next-themes": "^0.4.6",
             "react": "^18.3.1",
@@ -57,6 +58,20 @@
       },
       "scripts": {
             "dev": "vite",
-            "build": "vite build"
-      }
+            "build": "vite build",
+            "start": "json-server --watch db.json --port 3001"
+      },
+      "description": "Este proyecto fue desarrollado por el **Grupo 7** de la materia **Diseño de Sistemas (3er año)** como trabajo de campo.  \r El objetivo es implementar un **componente funcional** que resuelva los requerimientos planteados en el proyecto **Fondo Blanco**, originalmente diseñado por el **Grupo 5 de Proyecto Final (5to año)**.",
+      "main": "index.js",
+      "repository": {
+            "type": "git",
+            "url": "git+https://github.com/belenpieroni/Fondo-Blanco.git"
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC",
+      "bugs": {
+            "url": "https://github.com/belenpieroni/Fondo-Blanco/issues"
+      },
+      "homepage": "https://github.com/belenpieroni/Fondo-Blanco#readme"
 }

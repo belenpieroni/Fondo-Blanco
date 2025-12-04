@@ -10,37 +10,68 @@ import { User } from '../types/user';
 export function UserProfilePage() {
   const { userId } = useParams();
   const navigate = useNavigate();
-  const [user, setUser] = useState<User | null>(userId ? users[userId] : null);
+  const [user, setUser] = useState<User | null>(userId ? users[userId] ?? null : null);
   const [drinks, setDrinks] = useState<Drink[]>([]);
   const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
-    if (userId) {
-      const foundUser = users[userId];
+    if (!userId) return;
+
+    async function load() {
+      
+      const foundUser = userId ? users[userId] ?? null : null;
+
       setUser(foundUser);
+
+      try {
+        
+        const userDrinks = userId ? await drinkStorage.getByUserId(userId) : [];
+
+
+        
+        const drinksArray: Drink[] = Array.isArray(userDrinks) ? userDrinks : [];
+
+        
+        const sorted = drinksArray.sort((a: Drink, b: Drink) => b.points - a.points);
+
+        setDrinks(sorted);
+      } catch (error) {
+        console.error('Error cargando tragos del usuario:', error);
+        setDrinks([]);
+      }
+
       
-      const userDrinks = drinkStorage.getByUserId(userId);
-      setDrinks(userDrinks.sort((a, b) => b.points - a.points));
-      
-      // Check if current user is following this user
-      const currentUser = users[CURRENT_USER_ID];
-      setIsFollowing(currentUser.following.includes(userId));
+      const current = users[CURRENT_USER_ID];
+      if (current && typeof userId === "string") {
+        setIsFollowing(Array.isArray(current.following) ? current.following.includes(userId) : false);
+      }else{
+        setIsFollowing(false);
+      }
     }
+
+    load();
   }, [userId]);
 
   const handleFollowToggle = () => {
     if (!user) return;
+
     
-    // Update following status
     const currentUser = users[CURRENT_USER_ID];
+    if (!currentUser) return;
+
+    
+    currentUser.following = Array.isArray(currentUser.following) ? [...currentUser.following] : [];
+    user.followers = Array.isArray(user.followers) ? [...user.followers] : [];
+
     if (isFollowing) {
       currentUser.following = currentUser.following.filter(id => id !== user.id);
       user.followers = user.followers.filter(id => id !== CURRENT_USER_ID);
     } else {
-      currentUser.following.push(user.id);
-      user.followers.push(CURRENT_USER_ID);
+      
+      if (!currentUser.following.includes(user.id)) currentUser.following.push(user.id);
+      if (!user.followers.includes(CURRENT_USER_ID)) user.followers.push(CURRENT_USER_ID);
     }
-    
+
     setIsFollowing(!isFollowing);
     setUser({ ...user });
   };
@@ -76,7 +107,7 @@ export function UserProfilePage() {
           onClick={() => navigate(`/perfil/${CURRENT_USER_ID}`)}
           className="w-10 h-10 bg-primary flex items-center justify-center hover:opacity-80 transition-opacity"
         >
-          <span className="text-white">{users[CURRENT_USER_ID].avatar}</span>
+          <span className="text-white">{users[CURRENT_USER_ID]?.avatar ?? ''}</span>
         </button>
       </header>
 
@@ -104,11 +135,11 @@ export function UserProfilePage() {
                     <span className="text-muted-foreground ml-1">tragos</span>
                   </div>
                   <button className="hover:opacity-80">
-                    <span className="text-foreground">{user.followers.length}</span>
+                    <span className="text-foreground">{user.followers?.length ?? 0}</span>
                     <span className="text-muted-foreground ml-1">seguidores</span>
                   </button>
                   <button className="hover:opacity-80">
-                    <span className="text-foreground">{user.following.length}</span>
+                    <span className="text-foreground">{user.following?.length ?? 0}</span>
                     <span className="text-muted-foreground ml-1">seguidos</span>
                   </button>
                 </div>
@@ -171,7 +202,7 @@ export function UserProfilePage() {
                       <h3 className="text-foreground mb-2">{drink.name}</h3>
                       <div className="flex justify-between text-sm text-muted-foreground">
                         <span>{drink.category}</span>
-                        <span>{drink.comments.length} comentarios</span>
+                        <span>{drink.comments?.length ?? 0} comentarios</span>
                       </div>
                     </div>
                   </div>

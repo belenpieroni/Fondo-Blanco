@@ -31,21 +31,27 @@ export function EditDrinkPage() {
   ]);
 
   useEffect(() => {
-    if (id) {
-      const drink = drinkStorage.getById(id);
-      if (drink && drink.createdByUserId === CURRENT_USER_ID) {
-        setDrinkName(drink.name);
-        setDescription(drink.description);
-        setCategory(drink.category);
-        setMainImagePreview(drink.mainImage);
-        setCreationDate(drink.creationDate);
-        setIngredients(drink.ingredients);
-        setSteps(drink.steps);
-      } else {
-        navigate('/mis-tragos');
-      }
+  async function loadDrink() {
+    if (!id) return;
+
+    const drink = await drinkStorage.getById(id); // ⬅ AHORA SÍ ESPERAMOS LA PROMESA
+
+    if (drink && drink.createdByUserId === CURRENT_USER_ID) {
+      setDrinkName(drink.name);
+      setDescription(drink.description);
+      setCategory(drink.category);
+      setMainImagePreview(drink.mainImage);
+      setCreationDate(drink.creationDate);
+      setIngredients(drink.ingredients);
+      setSteps(drink.steps);
+    } else {
+      navigate('/mis-tragos');
     }
-  }, [id, navigate]);
+  }
+
+  loadDrink();
+}, [id, navigate]);
+
 
   const addIngredient = () => {
     const newId = (Math.max(...ingredients.map(i => parseInt(i.id)), 0) + 1).toString();
@@ -58,11 +64,13 @@ export function EditDrinkPage() {
     }
   };
 
-  const updateIngredient = (id: string, field: keyof Ingredient, value: string) => {
-    setIngredients(ingredients.map(i => 
-      i.id === id ? { ...i, [field]: value } : i
-    ));
-  };
+  const updateIngredient = (id: string, field: keyof Ingredient, value: string | undefined) => {
+  const normalized = value ?? '';
+  setIngredients(ingredients.map(i =>
+    i.id === id ? { ...i, [field]: normalized } : i
+  ));
+};
+
 
   const addStep = () => {
     const newNumber = steps.length + 1;
@@ -81,11 +89,13 @@ export function EditDrinkPage() {
     }
   };
 
-  const updateStep = (id: string, field: keyof Step, value: string) => {
-    setSteps(steps.map(s => 
-      s.id === id ? { ...s, [field]: value } : s
-    ));
-  };
+  const updateStep = (id: string, field: keyof Step, value: string | undefined) => {
+  const normalized = value ?? '';
+  setSteps(steps.map(s =>
+    s.id === id ? { ...s, [field]: normalized } : s
+  ));
+};
+
 
   const handleMainImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -308,7 +318,9 @@ export function EditDrinkPage() {
                       <Label htmlFor={`ingredient-unit-${ingredient.id}`} className="text-foreground">Unidad</Label>
                       <Select
                         value={ingredient.unit}
-                        onValueChange={(value) => updateIngredient(ingredient.id, 'unit', value)}
+                        onValueChange={(value: string) => updateIngredient(ingredient.id, 'unit', value)
+                        }
+
                       >
                         <SelectTrigger id={`ingredient-unit-${ingredient.id}`} className="bg-input-background border-border text-foreground">
                           <SelectValue />

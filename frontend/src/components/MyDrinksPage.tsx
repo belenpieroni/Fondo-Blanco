@@ -22,9 +22,11 @@ export function MyDrinksPage() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
   useEffect(() => {
-    const myDrinks = drinkStorage.getByUserId(CURRENT_USER_ID);
-    setDrinks(myDrinks);
+  drinkStorage.getByUserId(CURRENT_USER_ID).then((data) => {
+      setDrinks(data);
+    });
   }, []);
+
 
   // Ordenar por puntos de mayor a menor
   const sortedDrinks = [...drinks].sort((a, b) => b.points - a.points);

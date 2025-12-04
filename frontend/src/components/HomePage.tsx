@@ -13,11 +13,35 @@ export function HomePage() {
   const [drinks, setDrinks] = useState<Drink[]>([]);
 
   useEffect(() => {
-    const allDrinks = searchQuery 
-      ? drinkStorage.search(searchQuery)
-      : drinkStorage.getAll();
-    setDrinks(allDrinks);
-  }, [searchQuery]);
+  async function load() {
+    try {
+      let url = "http://localhost:3001/drinks";
+
+      if (searchQuery) {
+        url += `?name_like=${encodeURIComponent(searchQuery)}&_limit=9999`;
+      }
+
+      const res = await fetch(url);
+      const data = await res.json();
+
+      let list = Array.isArray(data) ? data : [];
+
+      if (searchQuery && searchQuery.trim() !== "") {
+        const q = searchQuery.toLowerCase();
+
+        list = list.filter(d => d.name.toLowerCase().includes(q) || d.category.toLowerCase().includes(q) || d.description.toLowerCase().includes(q));
+      }
+
+      setDrinks(list);
+    } catch (err) {
+      console.error("Error cargando tragos:", err);
+      setDrinks([]);
+    }
+  }
+
+  load();
+}, [searchQuery]);
+
 
   const handleVote = (drinkId: string, voteType: 'like' | 'dislike' | 'favorite') => {
     const drink = drinks.find(d => d.id === drinkId);
@@ -53,6 +77,10 @@ export function HomePage() {
 
   // Ordenar por puntos de mayor a menor
   const sortedDrinks = [...drinks].sort((a, b) => b.points - a.points);
+
+  if (!Array.isArray(drinks)) {
+    return <div className="p-6">Cargando...</div>;
+  }
 
   return (
     <>
