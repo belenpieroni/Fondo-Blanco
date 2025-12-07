@@ -27,7 +27,7 @@ export interface Drink {
   id: string;
   name: string;
   description: string;
-  category: string;
+  categories: string[];
   creationDate: string;
   mainImage: string;
   ingredients: Ingredient[];

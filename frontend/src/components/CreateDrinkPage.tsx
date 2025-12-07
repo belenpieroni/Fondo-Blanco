@@ -16,7 +16,7 @@ export function CreateDrinkPage() {
   const navigate = useNavigate();
   const [drinkName, setDrinkName] = useState('');
   const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
+  const [categories, setCategories] = useState<string[]>([]);
   const [mainImage, setMainImage] = useState<File | null>(null);
   const [mainImagePreview, setMainImagePreview] = useState<string | null>(null);
   const [creationDate] = useState(new Date().toISOString().split('T')[0]);
@@ -101,7 +101,7 @@ export function CreateDrinkPage() {
       id: String(Date.now()),
       name: drinkName,
       description,
-      category,
+      categories,
       creationDate,
       mainImage: mainImagePreview || 'https://images.unsplash.com/photo-1724155331840-263a0454d8bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
       ingredients,
@@ -180,13 +180,13 @@ export function CreateDrinkPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="category" className="text-foreground">Categoría</Label>
+                    <Label htmlFor="categories" className="text-foreground">Categoría</Label>
                     <Select
-                      value={category}
-                      onValueChange={setCategory}
+                      value={categories}
+                      onValueChange={setCategories}
                       required
                     >
-                      <SelectTrigger id="category" className="bg-input-background border-border text-foreground">
+                      <SelectTrigger id="categories" className="bg-input-background border-border text-foreground">
                         <SelectValue placeholder="Selecciona una categoría" />
                       </SelectTrigger>
                       <SelectContent className="bg-card border-border">
