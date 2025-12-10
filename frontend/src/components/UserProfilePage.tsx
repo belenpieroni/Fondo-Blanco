@@ -201,7 +201,17 @@ export function UserProfilePage() {
                     <div className="p-4">
                       <h3 className="text-foreground mb-2">{drink.name}</h3>
                       <div className="flex justify-between text-sm text-muted-foreground">
-                        <span>{drink.category}</span>
+                        {(() => {
+                          const cats = drink.categories || [];
+                          const first = cats.slice(0, 1);
+                          const extra = cats.length - 1;
+
+                          return (
+                            <span className="text-muted-foreground">
+                              {first.join(", ")}{extra > 0 ? ` (+${extra})` : ""}
+                            </span>
+                          );
+                        })()}
                         <span>{drink.comments?.length ?? 0} comentarios</span>
                       </div>
                     </div>

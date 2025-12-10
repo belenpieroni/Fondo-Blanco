@@ -146,7 +146,7 @@ export function DrinkDetailPage() {
       <div className="flex items-start gap-3">
         <button
           onClick={() => navigate(`/perfil/${comment.userId}`)}
-          className="w-8 h-8 bg-primary flex items-center justify-center flex-shrink-0 hover:opacity-80"
+          className="w-8 h-8 bg-primary flex items-center justify-center hover:opacity-80"
         >
           <span className="text-white text-xs">{users[comment.userId]?.avatar || comment.userName[0]}</span>
         </button>
@@ -216,7 +216,7 @@ export function DrinkDetailPage() {
                 <div key={reply.id} className="flex items-start gap-3">
                   <button
                     onClick={() => navigate(`/perfil/${reply.userId}`)}
-                    className="w-7 h-7 bg-secondary flex items-center justify-center flex-shrink-0 hover:opacity-80"
+                    className="w-7 h-7 bg-secondary flex items-center justify-center hover:opacity-80"
                   >
                     <span className="text-foreground text-xs">{users[reply.userId]?.avatar || reply.userName[0]}</span>
                   </button>
@@ -343,7 +343,16 @@ export function DrinkDetailPage() {
             <h2 className="mb-4 text-foreground">Descripción</h2>
             <p className="text-foreground mb-4">{drink.description}</p>
             <div className="flex gap-4 text-muted-foreground">
-              <span className="px-3 py-1 bg-secondary">{drink.category}</span>
+              <div className="flex flex-wrap gap-2">
+                {drink.categories?.map((cat) => (
+                  <span 
+                    key={cat}
+                    className="px-3 py-1 bg-secondary text-muted-foreground rounded-md"
+                  >
+                    {cat}
+                  </span>
+                ))}
+              </div>
               <span>Creado el {new Date(drink.creationDate).toLocaleDateString('es-ES', { 
                 day: 'numeric', 
                 month: 'long', 
@@ -372,7 +381,7 @@ export function DrinkDetailPage() {
             <div className="space-y-4">
               {drink.steps.map((step) => (
                 <div key={step.id} className="flex gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 bg-primary text-white flex items-center justify-center">
+                  <div className="w-8 h-8 bg-primary text-white flex items-center justify-center">
                     {step.number}
                   </div>
                   <div className="flex-1">

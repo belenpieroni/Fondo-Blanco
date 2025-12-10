@@ -151,7 +151,17 @@ export function HomePage() {
                   </div>
                   
                   <div className="flex items-center justify-between text-muted-foreground mb-4">
-                    <span>{drink.category}</span>
+                    {(() => {
+                      const cats = drink.categories || [];
+                      const first = cats.slice(0, 1);
+                      const extra = cats.length - 1;
+
+                      return (
+                        <span className="text-muted-foreground">
+                          {first.join(", ")}{extra > 0 ? ` (+${extra})` : ""}
+                        </span>
+                      );
+                    })()}
                     <button 
                       onClick={() => navigate(`/perfil/${drink.createdByUserId}`)}
                       className="hover:text-primary transition-colors"

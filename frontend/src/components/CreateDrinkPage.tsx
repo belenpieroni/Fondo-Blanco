@@ -12,7 +12,7 @@ import { IngredientAutocomplete } from './IngredientAutocomplete';
 import { drinkStorage } from '../data/drinkStorage';
 import { CURRENT_USER_ID, users } from '../data/users';
 import { Badge } from './ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs"
 
 export function CreateDrinkPage() {
   const navigate = useNavigate();
@@ -163,36 +163,48 @@ export function CreateDrinkPage() {
         <div className="h-full max-w-4xl mx-auto">
           <form onSubmit={handleSubmit} className="h-full flex flex-col">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col p-6">
-              <TabsList className="flex w-full bg-card mb-6 border-0 shadow-none">
+              <TabsList className="flex w-full bg-transparent border-b border-border">
                 <TabsTrigger 
                   value="info" 
-                  className="flex-1 h-12 flex items-center justify-center gap-2 text-foreground font-medium rounded-none border-b-2 border-transparent 
-                    bg-transparent hover:bg-primary/10 transition-colors
-                    data-[state=active]:bg-primary 
-                    data-[state=active]:text-white 
-                    data-[state=active]:border-primary"
+                  className="
+                    flex-1 h-12 flex items-center justify-center gap-2 font-medium
+                    border-b-2 border-transparent rounded-none text-foreground
+                    hover:bg-primary/10 transition-colors
+
+                    data-[state=active]:bg-primary
+                    data-[state=active]:text-white
+                    data-[state=active]:border-primary
+                  "
                 >
                   <Info size={16} />
                   Información
                 </TabsTrigger>
                 <TabsTrigger 
                   value="ingredients"
-                  className="flex-1 h-12 flex items-center justify-center gap-2 text-foreground font-medium rounded-none border-b-2 border-transparent 
-                    bg-transparent hover:bg-primary/10 transition-colors
-                    data-[state=active]:bg-primary 
-                    data-[state=active]:text-white 
-                    data-[state=active]:border-primary"
+                  className="
+                    flex-1 h-12 flex items-center justify-center gap-2 font-medium
+                    border-b-2 border-transparent rounded-none text-foreground
+                    hover:bg-primary/10 transition-colors
+
+                    data-[state=active]:bg-primary
+                    data-[state=active]:text-white
+                    data-[state=active]:border-primary
+                  "
                 >
                   <Utensils size={16} />
                   Ingredientes ({ingredients.length})
                 </TabsTrigger>
                 <TabsTrigger 
                   value="steps"
-                  className="flex-1 h-12 flex items-center justify-center gap-2 text-foreground font-medium rounded-none border-b-2 border-transparent 
-                    bg-transparent hover:bg-primary/10 transition-colors
-                    data-[state=active]:bg-primary 
-                    data-[state=active]:text-white 
-                    data-[state=active]:border-primary"
+                  className="
+                    flex-1 h-12 flex items-center justify-center gap-2 font-medium
+                    border-b-2 border-transparent rounded-none text-foreground
+                    hover:bg-primary/10 transition-colors
+
+                    data-[state=active]:bg-primary
+                    data-[state=active]:text-white
+                    data-[state=active]:border-primary
+                  "
                 >
                   <List size={16} />
                   Pasos ({steps.length})

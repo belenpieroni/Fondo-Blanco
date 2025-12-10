@@ -125,7 +125,16 @@ export function MyDrinksPage() {
                       
                       <div className="flex items-center justify-between mt-4">
                         <div className="flex items-center gap-4 text-muted-foreground">
-                          <span className="px-3 py-1 bg-secondary">{drink.category}</span>
+                          <div className="flex gap-2 flex-wrap">
+                            {drink.categories.map((cat, i) => (
+                              <span 
+                                key={i} 
+                                className="px-3 py-1 bg-secondary rounded"
+                              >
+                                {cat}
+                              </span>
+                            ))}
+                          </div>
                           <span>Creado el {new Date(drink.creationDate).toLocaleDateString('es-ES', { 
                             day: 'numeric', 
                             month: 'long', 

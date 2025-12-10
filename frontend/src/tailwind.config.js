@@ -1,13 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/**/*.{js,ts,jsx,tsx}', // tu carpeta de código
+    './src/**/*.{js,ts,jsx,tsx}', 
+    './frontend/src/**/*.{js,ts,jsx,tsx}',
   ],
-  safelist: [
-  'data-[state=active]:bg-primary/90',
-  'data-[state=active]:text-white',
-  'data-[state=active]:border-primary',
-  ],
+  safelist: [],
   theme: {
     extend: {},
   },
